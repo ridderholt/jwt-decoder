@@ -4,13 +4,16 @@ using System.Text.Json;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using Spectre.Console.Json;
+using TextCopy;
+
+namespace JwtDecoder;
 
 internal sealed class DecodeCommand : Command<DecodeCommand.Settings>
 {
     public sealed class Settings : CommandSettings
     {
         [Description("The JWT token to decode")]
-        [CommandArgument(0, "<token>")]
+        [CommandArgument(0, "[token]")]
         public string Token { get; init; } = string.Empty;
     }
 
@@ -18,7 +21,15 @@ internal sealed class DecodeCommand : Command<DecodeCommand.Settings>
     {
         try
         {
-            var parts = settings.Token.Split('.');
+            var token = settings.Token;
+
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                AnsiConsole.MarkupLine("[green]Info:[/] No token provided, using what is on top of clipboard.");
+                token = ClipboardService.GetText();
+            }
+
+            var parts = token?.Split('.') ?? [];
             
             if (parts.Length != 3)
             {
