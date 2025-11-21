@@ -128,6 +128,8 @@ JwtDecoder <your-jwt-token>
 JwtDecoder eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 ```
 
+**Note:** If you don't supply a JWT token as an argument, the tool will automatically read it from your clipboard. This feature was contributed by [@Fjeddo](https://github.com/Fjeddo).
+
 This will display:
 - A color-coded header section showing the algorithm and token type
 - A formatted payload with all claims
